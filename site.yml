@@ -1,0 +1,39 @@
+---
+
+ # This playbook deploys log server and apache traffic server on cluster
+
+ - name: apply common installation tasks
+   hosts: all
+   remote-user: root
+   roles:
+    - common
+ 
+ - name: install the ats on ats server
+   hosts: atsservers
+   remote-user: root
+   roles:
+     - apache-traffic-server
+     - iptables
+     - ndpi
+     - ebtables
+     - pacemaker
+     - lvs
+     - ldirectord
+      
+     
+ - name: install the log system on log server
+   hosts: logservers
+   remote-user: root
+   roles:
+     - elasticsearch
+     - logstash
+     - kibana
+     - exim-daemon-light
+     - nginx
+     - rabbitmq 
+     - mailutils
+     - rsyslogd
+     - oracle-java7-installer 
+     - curl 
+     - git
+     - pacemaker
